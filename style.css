@@ -1,0 +1,349 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans&family=Nanum+Myeongjo&&display=swap');
+
+h1, h2, h3, h4, h5{
+    font-weight: normal;
+}
+.nanumsquare {
+        font-family: 'NanumSquare', sans-serif !important;
+    }
+    출처: https://aspdotnet.tistory.com/2128 [심재운 블로그]
+header::after, .headerWrapper::after {
+    clear:both;
+    content:"";
+    display: table;
+}
+.headerWrapper {
+    max-width:1024px; 
+    margin:0 auto;
+}
+
+header{
+    position: fixed;
+    width: 100%;
+}
+nav{
+    float:right;
+
+}
+body {
+    font-size: 16px;
+    font-family: 'NanumSquare', sans-serif;
+    /* font-family: 'Nanum Myeongjo', sans-serif; */
+    /* font-family: 'Nanum Myeongjo','NanumSquareR','Helvetica Neue',Helvetica,Arial,sans-serif; */
+    background-color: #f4f4f4;
+    margin: 0;
+}
+
+#contents {
+    max-width: 1170px;
+    margin:0 auto;
+}
+
+ul{
+    list-style: none;
+}
+
+a{
+    text-decoration: none;
+    color: black;
+}
+
+li {
+    float:left;
+    margin-left:30px;
+    padding: 0;
+}
+
+.logo{
+    float: left;
+}
+
+#background{
+    background-image: url("./image/sub-top-bg01.jpg");
+    height: 500px;
+}
+
+.title{
+    font-size: 40px;
+    font-family:'NanumSquare', sans-serif;
+    color: white;
+    line-height: 1.25;
+    text-align: center;
+    margin: 0;
+    padding-top: 200px;
+    letter-spacing: -1.7px;
+}
+
+.title span{
+    font-family:'NanumSquareB', sans-serif;
+    font-weight: 500;
+}
+
+
+.section-tit{
+    margin: 110px 0 60px;
+    text-align: center;
+}
+
+.section-tit h1{
+    color: #aa7e46;
+    font-size: 36px;
+    line-height: 1.33;
+    font-family: 'Nanum Myeongjo';
+    margin:0;
+}
+
+.section-tit h2{
+    color: #3c92ca;
+    text-align: center;
+    font-size: 36px;
+    line-height: 1.33333;
+    font-family: 'Nanum Myeongjo';
+    margin:0;
+}
+
+.section-tit span{
+    color: #3c92ca;
+    text-align: center;
+    font-size: 36px;
+    line-height: 1.33333;
+    font-family:'NanumSquare', sans-serif;
+}
+
+.tit-bold{
+    font-weight: bold;
+    
+}
+
+.audit-img{
+    width: 100%;
+}
+
+.block{
+    padding-right: 63px;
+    padding-left: 63px;
+}
+.block-1 {
+    width:33%;
+    display: inline-block;
+    vertical-align: top;
+    padding-right: 22px;
+    box-sizing: border-box;
+
+    /* padding-left: 15px;
+    padding-right: 15px;
+    float:left; */
+}
+.block-2 {
+    width: 66%;
+    display: inline-block;
+    font-family: 
+}
+.block-2 h3{
+    margin:0;
+    padding:0;
+    font-size: 30px;
+    font-weight: bold;
+
+}
+
+.block-2 p{
+    font-size: 16px;
+    line-height: 2;
+    color: #505050;
+    margin:0;
+    padding:0;
+}
+
+
+.block-1::after{
+    clear:both;
+    content:"";
+    display: table;}
+
+
+.safe{
+    box-sizing: border-box;
+    block-size: auto;
+    /* margin-left: 100px;
+    margin-right: 100px; */
+    margin-bottom: 20px;
+    padding: 63px;
+    background-color: white;
+}
+
+
+.safe-title{
+    width:33%;
+    display: inline-block;
+    vertical-align: top;
+    
+}
+
+.safe-title h3{
+    font-size: 48px;
+    color: rgb(60, 146, 202);
+    line-height: 1;
+    font-family: 'Helvetica Neue';
+    letter-spacing: -1px;
+    margin:0;
+}
+
+
+
+.safe-title p{
+    font-size: 100px;
+    color: #dbccb9;
+    margin-top: 20px;
+    letter-spacing: -8px;
+    margin: 0;
+}
+
+.safe-text{
+    width:66%;
+    display: inline-block;
+    vertical-align: top;
+    font-family:'NanumSquare', sans-serif;
+    letter-spacing: -1.5;
+
+}
+
+.safe-text h4{
+    margin-bottom: 15px;
+    font-size: 36px;
+    line-height: 1.3888;
+    font-weight: normal;
+    margin: 0;
+    padding: 0;
+
+}
+.safe-text h4 span{
+    font-weight: bold;
+}
+
+.safe-text p{
+    font-size: 16px;
+    line-height: 2;
+    color: #505050;
+}
+
+#bold{
+    font-weight:600;
+}
+
+#brown-text{
+    color: #ba9363;
+}
+
+.image{
+    box-sizing: border-box;
+    block-size: auto;
+    margin-bottom: 20px;
+}
+
+
+.mission h3{
+    font-size: 36px;
+    font-family:'NanumSquare', sans-serif;
+    font-weight: bold;
+    color: #1f7dba;
+    text-align: center;
+    margin-top: 150px;
+    margin-bottom: 60px;
+}
+
+.mission h2{
+    font-family: 'Nanum Myeongjo';
+    font-size: 66px;
+    color: #000;
+    text-align: center;
+    margin:20px;
+}
+
+.mission p{
+    font-family: 'Nanum Myeongjo';
+    font-size: 33px;
+    color: #000;
+    text-align: center;
+    margin:0;
+}
+
+
+.circle{
+    width:200px;
+    height:200px;
+    border-radius:50%;
+    background:#313131;
+    margin: 20px;
+    margin-top: 100px;
+    opacity: 50%
+}
+
+.circle-position{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    position: relative;
+    margin-bottom:40px;
+}
+
+
+.left {
+    position: relative;
+    top:0;
+    left:80px;
+}
+
+
+.left3 {
+    position: relative;
+    top:0;
+    left:-80px;
+}
+
+#section-last{
+    background-color: white;
+    height: 1200px;
+    padding:10px;
+}
+
+.last{
+    max-width: 1170px;
+    margin:0 auto;
+}
+
+.last-testimonial{
+    display: flex;
+    margin-top: 40px;
+}
+
+
+.image1{
+    display: inline-block;
+    width: 20%;
+}
+
+.text1{
+    display: inline-block;
+    width: 79%;
+}
+
+.text1 h5{
+    font-size: 24px;
+    margin-top: 15px;
+    margin-bottom:5px;
+    font-family: 'Nanum Myeongjo';
+    line-height: 1.4;
+}
+
+.text1 p{
+    font-family:'NanumSquare', sans-serif;
+    font-size: 16px;
+    margin-top: 7px;
+    margin-bottom: 12px;
+    line-height: 1.6;
+}
+
+#id{
+    font-size: 14px;
+}
