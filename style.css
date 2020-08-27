@@ -1,13 +1,46 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans&family=Nanum+Myeongjo&&display=swap');
 
+/**
+ * [css를 작성하는 tip]
+ * -> css는 cascade style sheet 의 약자입니다. cascade는 '아래로 흐르는'이라는 뜻을 갖고 있는데, 이름 그대로 위에서 아래로 내려가면서 코드를 읽고, 스타일 속성들을 웹페이지에 적용합니다. 
+ *    그래서 css파일의 윗 부분에서 특정 클래스에 {margin: 0} 이라고 해도 그 보다 아래줄에서 {margin: 10px}이라고 하면 margin값은 10px이 적용됩니다.
+ *    이는 의도치 않게 스타일이 중복될 수도 있고, 애꿎은 태그에 원하지 않는 스타일이 적용될 수도 있다는 것을 의미합니다.
+ *    따라서, class와 id값을 잘 활용해서 css를 작성하는 게 중요하고 html 구조를 잘 잡는 것 또한 중요합니다. 또, css의 작성 순서와 정리도 중요합니다.
+ *    그래서 미션을 하나 준비해보았습니다. 아래에 작성한 주석에 맞게 css코드들을 정리해보세요!
+ */
+
+/*-------------------[ 이하 미션 ]-------------------*/
+
+/********************
+ * Header
+ ********************/
+
+
+/********************
+ * Contents
+ ********************/
+
+
+/********************
+ * Footer
+ ********************/
+
+
+/********************
+ * Common
+ ********************/
+
+
+
 h1, h2, h3, h4, h5{
     font-weight: normal;
 }
 .nanumsquare {
-        font-family: 'NanumSquare', sans-serif !important;
-    }
-    출처: https://aspdotnet.tistory.com/2128 [심재운 블로그]
-header::after, .headerWrapper::after {
+    font-family: 'NanumSquare', sans-serif !important;
+}
+header::after,
+.headerWrapper::after,
+.block-1::after{
     clear:both;
     content:"";
     display: table;
@@ -23,7 +56,6 @@ header{
 }
 nav{
     float:right;
-
 }
 body {
     font-size: 16px;
@@ -38,7 +70,6 @@ body {
     max-width: 1170px;
     margin:0 auto;
 }
-
 ul{
     list-style: none;
 }
@@ -137,16 +168,13 @@ li {
 .block-2 {
     width: 66%;
     display: inline-block;
-    font-family: 
 }
 .block-2 h3{
     margin:0;
     padding:0;
     font-size: 30px;
     font-weight: bold;
-
 }
-
 .block-2 p{
     font-size: 16px;
     line-height: 2;
@@ -154,14 +182,6 @@ li {
     margin:0;
     padding:0;
 }
-
-
-.block-1::after{
-    clear:both;
-    content:"";
-    display: table;}
-
-
 .safe{
     box-sizing: border-box;
     block-size: auto;
