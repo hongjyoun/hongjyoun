@@ -1,0 +1,48 @@
+.block{
+    width: 50px;
+    height: 50px;
+    background-color: white;
+    border: 1px solid black;
+    margin: 5px;
+    font-size: 30px
+
+}
+
+.container{
+    width: 100%;
+    height: 200vh;
+    background-color: gray;
+    padding: 10px;
+    position: relative;
+}
+
+#a{
+    position: static;
+    /* 디폴트 값 */
+}
+
+#b{
+    position: relative;
+    top: 30px; /*탑으로부터 숫자만큼 이동*/
+    left: 30px; /* 왼쪽으로 부터 숫자만큼 이동 */
+}
+/* 기본 위치를 기준으로 상대적으로 이동 */
+
+#c{
+    position: absolute;
+    top: 30px;
+    left: 100px;
+}
+/* 부모를 기준으로 해서 절대 위치로 이동한다 */
+/* c의 부모가 relative 속성이여야 부모 기준으로 움직임 */
+
+#d{
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+}
+
+#e {
+    position: sticky;
+    top: 20px;
+}

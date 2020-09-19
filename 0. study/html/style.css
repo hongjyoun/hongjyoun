@@ -1,0 +1,55 @@
+header::after {
+    clear:both;
+    content:"";
+    display: table;
+}
+
+header{
+    max-width:900px; 
+    margin:0 auto;
+
+}
+
+nav{
+    float:right;
+
+}
+body {
+    font-size: 16px;
+    font-family: 'NanumSquareR','Helvetica Neue',Helvetica,Arial,sans-serif;
+    background: #f4f4f4;
+}
+
+ul{
+    list-style: none;
+}
+
+a{
+    text-decoration: none;
+    color: black;
+}
+
+li {
+    float:left;
+    margin-left:30px;
+    padding: 0;
+}
+
+.logo{
+    float: left;
+}
+
+#background{
+    background-image: url("./image/sub-top-bg01.jpg");
+    height: 500px;
+}
+
+.title{
+    font-size: 40px;
+    font:'NanumSquareR';
+    color: white;
+    line-height: 1.25;
+    text-align: center;
+    margin: 0;
+    padding-top: 200px;
+}

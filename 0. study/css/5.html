@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script>
+
+    var Body = {
+        setColor : function (color) {
+            document.querySelector('body').style.color= color;
+        },
+
+        setBackgroundColor : function(color){
+            document.querySelector('body').style.backgroundColor= color;
+        }       
+    }
+
+    var links = {
+        setColor : function(color){
+        var list = document.querySelectorAll('a');
+        var i = 0;
+        while (i<list.length){
+            list[i].style.color = color;
+            i = i+1;
+            }
+        }   
+    }
+
+
+    function nightDayHandler(self){
+        if(self.value==='night'){
+            Body.setBackgroundColor('black')
+            Body.setColor('white');
+            self.value = 'day';
+        
+            links.setColor('powderblue');
+        } else{
+            Body.setBackgroundColor('white')
+            Body.setColor('black');
+            self.value = 'night';
+
+            links.setColor('blue');
+        }  
+    }
+    </script>
+
+
+
+</head>
+<body>
+
+    <h1>안녕하세요</h1>
+    <input type="button" value="night" onclick="  
+    nightDayHandler(this);
+    ">
+    <li>
+        <a href="http://google.com">구글</a>
+    </li>
+    <li>
+        <a href="http://naver.com">네이버</a>
+    </li>
+
+</body>
+</html>

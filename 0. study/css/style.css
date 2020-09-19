@@ -1,0 +1,31 @@
+body{
+    font-family: "NanumGothic"
+}
+
+.male{
+    color: blue;
+
+}
+
+.female{
+    color: #e43681;
+
+}
+
+ul{
+    list-style: none;
+}
+
+li.key{
+    color:gray;
+}
+
+/* 리스트이면서 마우스오버일때 */
+li:hover{ 
+ color:blue;
+}
+
+/* 전체선택 */
+*{
+    font-family: "NanumGothic"
+}
