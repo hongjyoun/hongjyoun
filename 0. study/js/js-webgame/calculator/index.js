@@ -58,6 +58,7 @@ clearButton.addEventListener('click', ()=>{
     operator = null   
 })
 
+
 calculateButton.addEventListener('click', ()=>{
     if(operator){
         if(numberInput.value){
