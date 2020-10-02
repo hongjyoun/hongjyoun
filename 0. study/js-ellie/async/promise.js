@@ -1,3 +1,7 @@
+// Promise란, async 즉 비동기 처리시 콜백함수 대신에 유용하게 쓸 수 있다!
+// 콜백지옥에 빠지지 않도록 함!!
+
+
 // state( 현재 상태) 
 // pending (프로미스가 만들어져서 우리가 지정한 오퍼레이션이 수행 중일 떄) -> fulfilled (성공적으로 임무를 마친 상황) or rejected(파일을 찾을 수 없었다면)
 // Producer (데이터 만들어내는) vs Consumer (데이터를 소비하는)
@@ -21,7 +25,7 @@ const promise = new Promise((resolve, reject)=>{
 
 // 2. Consumers: then, catch, finally
 promise
-    .then((value) => {    //then 이란, promise에서 정상적으로 잘 수행되었을 때, resolve라는 콜백함수를 통해서 전달한 값을 받아서 실행함.
+    .then((value) => {    //then 이란, promise에서 정상적으로 잘 수행되었을 때, resolve라는 콜백함수를 통해서 전달한 값('ellie') 을 받아서(=> value(이 변수값 이름은 아무렇게나 지어도 됨)) 실행함.
         console.log(value)
     })
     .catch(error => {
