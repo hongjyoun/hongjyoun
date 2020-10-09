@@ -3,7 +3,6 @@
     <tr-component
       v-for="(rowData, index) in tableData"
       :key="index"
-      :row-data="rowData"
       :row-index="index"
     ></tr-component>
   </table>
@@ -15,8 +14,10 @@ export default {
   components: {
     TrComponent,
   },
-  props: {
-    tableData: Array,
+  computed: {
+    tableData() {
+      return this.$store.state.tableData;
+    },
   },
 };
 </script>
