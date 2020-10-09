@@ -84,29 +84,29 @@
        
     },
     beforeCreate() {     
-        console.log('beforeCreat')
+
     },
     created() {      // 컴포넌트가 생성될때 (자바스크립트 상에서 존재할 때, 화면에 나타나기 전)
-        console.log('created')
+
     },
     beforeMount() {   
-        console.log('beforemount')
+
     },
     mounted() {      // 화면에 존재할 때  << 화면 관련된 것은 여기서 수정
-        console.log('mounted')
+
         this.changeHand()
     },
     beforeUpdate() {   
-        console.log('beforeUpdate')
+
     },
     updated() {      // 화면의 데이터가 바뀌어서 화면이 다시 그려질 때
-        console.log('updated')    
+ 
     },
     beforeDestroy() {
         clearInterval(interval)
     },
     destroyed() {    // 컴포넌트가 화면에서 없어질 때
-        console.log('destroyed')
+ 
     },
 }
 </script>
