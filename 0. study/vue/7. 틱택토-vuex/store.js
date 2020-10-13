@@ -19,7 +19,11 @@ export default new Vuex.Store({
     turn: "O",
     winner: "",
   }, // vue 의 데이터 속성과 비슷
-  getters: {}, // vue 의 컴퓨티드와 비슷
+  getters: {
+    turnMessage(state) {
+      return state.turn + '님이 승리하셨습니다.'
+    }
+  }, // vue 의 컴퓨티드와 비슷
   mutations: {
     [SET_WINNER](state, winner) {
       state.winner = winner;
