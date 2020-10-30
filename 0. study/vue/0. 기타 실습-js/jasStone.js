@@ -39,18 +39,30 @@ function deckToField(data, myturn) {
   let idx = who.dataDeck.indexOf(data)
   who.dataDeck.splice(idx,1)
   who.dataField.push(data)
-  who.deck.innerHTML = ''
-  who.field.innerHTML = ''
-  who.dataField.forEach((data)=>{
-    connectTag(data, who.field) 
-  })
-  who.dataDeck.forEach((data)=>{
-    connectTag(data, who.deck) 
-  })
+
+  deckRecreate(who)
+  fieldRecreate(who)
 
   data.field = true
   who.cost.textContent = nowCost - data.cost
 
+}
+
+function fieldRecreate(what) {
+  what.field.innerHTML = ''
+  what.dataField.forEach((data)=>{
+    connectTag(data, what.field) 
+  })
+}
+function deckRecreate(what) {
+  what.deck.innerHTML = ''
+  what.dataDeck.forEach((data)=>{
+    connectTag(data, what.deck) 
+  })
+}
+function heroRecreate(what) {
+  what.hero.innerHTML=''
+  connectTag(what.dataHero, what.hero, true)
 }
 
 
@@ -58,17 +70,55 @@ function deckToField(data, myturn) {
 function screenRecreate(myscreen) {
   const who = myscreen ? mine : rival
 
-  who.deck.innerHTML=''
-  who.field.innerHTML=''
-  who.hero.innerHTML=''
-  
-  who.dataField.forEach((data)=>{
-    connectTag(data, who.field) 
-  })
-  who.dataDeck.forEach((data)=>{
-    connectTag(data, who.deck) 
-  })
-  connectTag(who.dataHero, who.hero, true)
+  deckRecreate(who)
+  fieldRecreate(who)
+  heroRecreate(who)
+}
+
+function turnAction(tagCard, data, me) {
+  let myTurn = me ? mine : rival
+  let rivalTurn = me ? rival : mine
+  if (tagCard.classList.contains('card-turnover')) {
+    return
+  }
+
+  let rivalCardCheck = me? !data.mine : data.mine
+  if (rivalCardCheck && myTurn.selectedCard) { 
+    data.hp = data.hp - myTurn.dataSelected.att
+    if(data.hp <= 0) {  // 카드가 죽었을 때
+      const index = rivalTurn.dataField.indexOf(data)
+      if (index > -1) {  // 쫄병이 죽었을 때
+        rivalTurn.dataField.splice(index, 1)
+      } else {  // 영웅이 죽었을 때
+        alert('승리하셨습니다')
+        startSetting()
+
+      }
+    }
+    screenRecreate(!me)
+    myTurn.selectedCard.classList.remove('card-selected')
+    myTurn.selectedCard.classList.add('card-turnover')
+    myTurn.selectedCard = null
+    myTurn.dataSelected = null
+    return
+
+  } else if (rivalCardCheck){  
+    return
+  } 
+
+  if (data.field) {  // 카드가 필드에 있으면
+    tagCard.parentNode.querySelectorAll('.card').forEach((card)=>{
+      card.classList.remove('card-selected')
+    })  // 모든 카드들의 '선택됨' 태그를 없앤 후에
+    tagCard.classList.add('card-selected')  // 내가 선택한 카드 1개만 선택될 수 있도록
+    myTurn.selectedCard = tagCard
+    myTurn.dataSelected = data
+
+  } else {  // 필드에 없으면(덱에 있으면)
+    if(deckToField(data, me) !== 'end') {
+      me ? makeDeckMy(1) : makeDeckRival(1)
+    }
+  } 
 }
 
 
@@ -85,94 +135,14 @@ function connectTag(data, whichTag, hero) {
     const nameHero = document.createElement('div')
     nameHero.textContent = '영웅'
     tagCard.appendChild(nameHero)
-    console.log(tagCard)
+    // console.log(tagCard)
   }
 
   tagCard.addEventListener('click', (card)=>{
-    if (turn) {  // 내 턴인데
-      if (tagCard.classList.contains('card-turnover')) {
-        return
-      }
-      if (!data.mine && mine.selectedCard) { 
-        // 상대 카드면서 && 내 카드가 선택되있을 때
-        console.log(mine.dataSelected.att)
-        console.log(data.hp)
-
-        data.hp = data.hp - mine.dataSelected.att
-        screenRecreate(false)
-        mine.selectedCard.classList.remove('card-selected')
-        mine.selectedCard.classList.add('card-turnover')
-        mine.selectedCard = null
-        mine.dataSelected = null
-
-        console.log(data.hp)
-        return
-
-      } else if (!data.mine){  
-        return
-      } 
-
-      if (data.field) {  // 필드에 있는 카드 선택()
-        tagCard.parentNode.querySelectorAll('.card').forEach((card)=>{
-          card.classList.remove('card-selected')
-        })  // 모든 카드들의 '선택됨' 태그를 없앤 후에
-        tagCard.classList.add('card-selected')  // 내가 선택한 카드 1개만 선택될 수 있도록
-        mine.selectedCard = tagCard
-        mine.dataSelected = data
-
-      } else {  // 필드에 없으면(덱에 있으면)
-        if(deckToField(data, true) !== 'end') {
-          makeDeckMy(1)
-        }
-      } 
-         
-           
-    } else {  // 상대 턴인데
-      if (tagCard.classList.contains('card-turnover')) {
-        return
-      }
-      if (data.mine && rival.selectedCard) { 
-        // 내 카드를 누를 때 && 상대방 카드가 선택되어 있을 때
-        console.log(rival.dataSelected.att)
-        console.log(data.hp)
-
-        data.hp = data.hp - rival.dataSelected.att
-        screenRecreate(true)
-        rival.selectedCard.classList.remove('card-selected')
-        rival.selectedCard.classList.add('card-turnover')
-        rival.selectedCard = null
-        rival.dataSelected = null
-
-        console.log(data.hp)
-        return
-
-      } else if (data.mine){ 
-        return
-      }
-
-      if (data.field) {
-        tagCard.parentNode.querySelectorAll('.card').forEach((card)=>{
-          card.classList.remove('card-selected')
-        })  // 모든 카드들의 '선택됨' 태그를 없앤 후에
-        tagCard.classList.add('card-selected')  // 내가 선택한 카드 1개만 선택될 수 있도록
-        rival.selectedCard = tagCard
-        rival.dataSelected = data
-      } else {
-        if(deckToField(data, false) !== 'end'){
-          makeDeckRival(1)
-        }
-      }  
-    }
+    turnAction(tagCard, data, turn)
   })
-
-
   whichTag.appendChild(tagCard)
 }
-
-
-
-
-
 
 
 // 초기 세팅시, 카드만드는 관련 함수
@@ -180,19 +150,13 @@ function makeDeckRival(num) {
   for(let i=0; i<num; i++){
     rival.dataDeck.push(cardMaking())
   }
-  rival.deck.innerHTML = ''
-  rival.dataDeck.forEach((data)=>{
-    connectTag(data, rival.deck)
-  })
+  deckRecreate(rival)
 }
 function makeDeckMy(num) {
   for(let i=0; i<num; i++){
     mine.dataDeck.push(cardMaking(false, true))
   }
-  mine.deck.innerHTML = ''
-  mine.dataDeck.forEach((data)=>{
-    connectTag(data, mine.deck)
-  })
+  deckRecreate(mine)
 }
 function makeHeroRival() {
   rival.dataHero = cardMaking(true)
@@ -206,10 +170,19 @@ function makeHeroMy() {
 
 // 초기 세팅
 function startSetting() {
+  [rival, mine].forEach((item)=>{
+    item.dataDeck = []
+    item.dataHero = []
+    item.dataField = []
+    item.dataSelected = []
+    item.selectedCard = []
+  })
   makeDeckRival(5)
   makeDeckMy(5)
   makeHeroRival()
   makeHeroMy()
+  screenRecreate(true)
+  screenRecreate(false)
 }
 
 
@@ -219,6 +192,7 @@ function Card(hero, myCard) {
     this.att = Math.ceil(Math.random() * 2)
     this.hp = Math.ceil(Math.random() * 5) + 25
     this.hero = true
+    this.field = true
   } else {
     this.att = Math.ceil(Math.random() * 5)
     this.hp = Math.ceil(Math.random() * 5)
@@ -242,17 +216,9 @@ tagTurnButton.addEventListener('click', ()=>{
   // 턴을 넘기기 전에, turnover된 카드들을 풀어줌
   const who = turn ? mine : rival
   document.getElementById('rival').classList.toggle('turn')
+  fieldRecreate(who)
   document.getElementById('my').classList.toggle('turn')
-
-  who.field.innerHTML=''
-  who.hero.innerHTML=''
-  
-  who.dataField.forEach((data)=>{
-    connectTag(data, who.field) 
-  })
-  connectTag(who.dataHero, who.hero, true)
-
-
+  heroRecreate(who)
 
   // 턴을 넘김
   turn = !turn    // false면 true로, true면 false로
@@ -261,5 +227,4 @@ tagTurnButton.addEventListener('click', ()=>{
   } else {
     rival.cost.textContent = 10
   }
-
 })
