@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 
 <head>
   <meta charset="UTF-8">
@@ -11,7 +11,14 @@
     }
 
     td {
-      border: 1px solid black;
+      border: 1px solid white;
+      width: 40px;
+      height: 40px;
+      background: grey;
+    }
+
+    td.opened {
+      background: white;
     }
   </style>
 </head>
@@ -22,6 +29,10 @@
   <input type="number" id="mine" placeholder="지뢰갯수" value="20">
   <button id="button">시작!</button>
 
+  <p>
+  <table id="table"></table>
+  </p>
+  <div id="log"></div>
   <script src="minesweeper2.js"></script>
 </body>
 

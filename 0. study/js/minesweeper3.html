@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>mineSweeper3</title>
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+        td {
+            border: solid 1px black;
+            width: 30px;
+            height: 30px;
+            background: grey;
+        }
+        td.opened {
+            background: white;
+        }
+        td.flag {
+            background: yellow;
+        }
+        td.ques {
+            background: red;
+        }
+        
+    </style>
+</head>
+<body>
+    <input type="number" id="cell">
+    <input type="number" id="row">
+    <input type="number" id="mine">
+    <button id=button>시작하기</button>
+    <div>
+    <table id="table"></table>
+    <div id="log"></div>
+    </div>
+    <script src="minesweeper3.js"></script>
+</body>
+</html>
