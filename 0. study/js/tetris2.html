@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>테트리스</title>
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+
+        #main {
+            float: left;
+            margin-right: 30px;
+        }
+
+        td {
+            border: 1px solid black;
+            width: 30px;
+            height: 30px;
+        }
+
+        td.movingblock {
+            background: pink;
+        }
+    </style>
+</head>
+<body>
+    <div id="main">
+        <table id="tabletag"></table>
+    </div>
+    <div>
+        <table id="nextblock"></table>
+    </div>
+
+
+    <script src="tetris2.js"></script>
+</body>
+</html>
