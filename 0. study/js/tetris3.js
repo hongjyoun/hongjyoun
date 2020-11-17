@@ -274,8 +274,8 @@ const blockOnData = () => {
         alert('게임오버')
         return
     }
-        matchingBlock(block)
-
+    
+    matchingBlock(block)
     screenMake(data, row+4, cell, table)
 }
 
@@ -291,34 +291,63 @@ const nineSolid = () => {
     screenMake(data, row+4, cell, table)
 }
 
-const matchingBlock = (changedBlock) => {
-
-
-    for(i=0; i<4; i++){
-        for(k=0; k<4; k++){
-            
+const matchingBlock = (matchBlock) => {
+    console.log('블록을 데이터로')
+    console.log(currentY<row)
+    
+    if (currentY < row) {// 바뀌려는 블록이 줄 끝에 다다랐을 때
+        // 아무일도 일어나지 않음
+    } else {
+        for(i=0; i<4; i++){
+            for(k=0; k<4; k++){
+                
+            }
         }
     }
+
+
+
+
+    // for(i=0; i<4; i++){
+    //     for(k=0; k<4; k++){
+    //         if(matchBlock[i][k] === 1){
+    //             if(data[currentX+i][currentY+k] !=9) { // 바뀌려는 자리 data 값이 9가 아닐때
+    //                 console.log('주변에 9 없어')
+    //                 console.log(data)
+    //                 data[currentX+i][currentY+k] = matchBlock[i][k]
+    //             } else { // 바뀌려는 자리 data 값이 9일 때
+    //                 console.log('뭐야')
+    //                 break
+    //             }
+    //         } else {
+    //             if(data[currentX+i][currentY+k] === 9) {
+    //                 data[currentX+i][currentY+k] = 9
+    //             } else {
+    //                 data[currentX+i][currentY+k] = 0
+    //             }
+    //         }
+    //     }
+    // }
   
-    // data[currentX][currentY] = changedBlock[0][0]
-    // data[currentX][currentY+1] = changedBlock[0][1]
-    // data[currentX][currentY+2] = changedBlock[0][2]
-    // data[currentX][currentY+3] = changedBlock[0][3]
+    // data[currentX][currentY] = matchBlock[0][0]
+    // data[currentX][currentY+1] = matchBlock[0][1]
+    // data[currentX][currentY+2] = matchBlock[0][2]
+    // data[currentX][currentY+3] = matchBlock[0][3]
 
-    // data[currentX+1][currentY] = changedBlock[1][0]
-    // data[currentX+1][currentY+1] = changedBlock[1][1]
-    // data[currentX+1][currentY+2] = changedBlock[1][2]
-    // data[currentX+1][currentY+3] = changedBlock[1][3]
+    // data[currentX+1][currentY] = matchBlock[1][0]
+    // data[currentX+1][currentY+1] = matchBlock[1][1]
+    // data[currentX+1][currentY+2] = matchBlock[1][2]
+    // data[currentX+1][currentY+3] = matchBlock[1][3]
 
-    // data[currentX+2][currentY] = changedBlock[2][0]
-    // data[currentX+2][currentY+1] = changedBlock[2][1]
-    // data[currentX+2][currentY+2] = changedBlock[2][2]
-    // data[currentX+2][currentY+3] = changedBlock[2][3]
+    // data[currentX+2][currentY] = matchBlock[2][0]
+    // data[currentX+2][currentY+1] = matchBlock[2][1]
+    // data[currentX+2][currentY+2] = matchBlock[2][2]
+    // data[currentX+2][currentY+3] = matchBlock[2][3]
 
-    // data[currentX+3][currentY] = changedBlock[3][0]
-    // data[currentX+3][currentY+1] = changedBlock[3][1]
-    // data[currentX+3][currentY+2] = changedBlock[3][2]
-    // data[currentX+3][currentY+3] = changedBlock[3][3]
+    // data[currentX+3][currentY] = matchBlock[3][0]
+    // data[currentX+3][currentY+1] = matchBlock[3][1]
+    // data[currentX+3][currentY+2] = matchBlock[3][2]
+    // data[currentX+3][currentY+3] = matchBlock[3][3]
 }
 
 
@@ -328,27 +357,27 @@ const movingArrow = (keyCode) => {
     switch (keyCode) {
         case 'ArrowLeft':
             console.log('왼쪽키')
-            clearInterval(gameInterval)
+            // clearInterval(gameInterval)
             movingLeft()
-            gameInterval = setInterval(movingDownWithCheck, 200)
+            // gameInterval = setInterval(movingDownWithCheck, 200)
             return
         case 'ArrowRight':
             console.log('오른쪽키')
-            clearInterval(gameInterval)
+            // clearInterval(gameInterval)
             movingRight()
-            gameInterval = setInterval(movingDownWithCheck, 200)
+            // gameInterval = setInterval(movingDownWithCheck, 200)
             return
         case 'ArrowUp':
             console.log('위쪽키, 도형바꾸기')
-            clearInterval(gameInterval)
+            // clearInterval(gameInterval)
             changeBlock()
-            gameInterval = setInterval(movingDownWithCheck, 200)
+            // gameInterval = setInterval(movingDownWithCheck, 200)
             return
         case 'ArrowDown':
             console.log('아래쪽')
-            clearInterval(gameInterval)
+            // clearInterval(gameInterval)
             movingDownWithCheck()
-            gameInterval = setInterval(movingDownWithCheck, 200)
+            // gameInterval = setInterval(movingDownWithCheck, 200)
             return
 
 
@@ -552,6 +581,7 @@ const init = () => {
 init()
 stopFlag = false
 blockOnData()
+movingDownWithCheck()
 // let gameInterval = setInterval(movingDownWithCheck, 200)
 
 
