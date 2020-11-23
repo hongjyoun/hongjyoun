@@ -209,7 +209,7 @@ const blockData = {
 // 테트리스 데이터 만들기
 const makeData = () => {
     const tempNum = Array((row+4) * cell).fill().map(v => v = 0)
-    for (i = 0; i < row+4; i++) {
+    for (let i = 0; i < row+4; i++) {
         data.push(tempNum.splice(0, cell))
     }
 }
@@ -217,7 +217,7 @@ const makeData = () => {
 // nextBlock 데이터 만들기
 const makeNextData = () => {
     const tempNum = Array(4 * 4).fill().map(v => v = 0)
-    for (i = 0; i < 4; i++) {
+    for (let i = 0; i < 4; i++) {
         nextData.push(tempNum.splice(0, 4))
     }
 }
@@ -232,9 +232,9 @@ const randomBlockMake = () => {
 // 화면 그리기
 const screenMake = (whichData, rowNum, cellNum, whichTable) => {
     whichTable.innerHTML = ''
-    for (i = 0; i < rowNum; i++) {
+    for (let i = 0; i < rowNum; i++) {
         const tr = document.createElement('tr')
-        for (j = 0; j < cellNum; j++) {
+        for (let j = 0; j < cellNum; j++) {
             const td = document.createElement('td')
 
 

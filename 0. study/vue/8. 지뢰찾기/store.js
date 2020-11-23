@@ -1,9 +1,12 @@
 import Vue from "vue";
 import Vuex from "vuex";
 
-Vue.use(Vuex);
+Vue.use(Vuex);  // Vue랑 Vuex 를 연결해주어야 함. store 갖다 쓰기 전에 반드시 이렇게 연결해줘야 오류가 안뜸
 
-export const START_GAME = 'START_GAME'
+
+// 함수를 '변수'로 지정해준 것 (ES2015 문법임 : object dynamic property)
+// export로 붙임으로서 모듈로 만듬. 다른 파일에서도 쓸 수 있게
+export const START_GAME = 'START_GAME'  
 export const OPEN_CELL = 'OPEN_CELL'
 export const CLICK_MINE = 'CLICK_MINE'
 export const FLAG_CELL = 'FLAG_CELL'
@@ -11,54 +14,50 @@ export const QUESTION_CELL = 'QUESTION_CELL'
 export const NORMALIZE_CELL = 'NORMALIZE_CELL'
 export const INCREMENT_TIMER = 'INCREMENT_TIMER'
 
+
 export const CODE = {
   MINE: -7,
-  NORMAL: -1,  // 게임 시작 시, 모든 칸은 모두 -1. 빈칸.
+  NORMAL: -1,
   QUESTION: -2,
   FLAG: -3,
   QUESTION_MINE: -4,
   FLAG_MINE: -5,
   CLICKED_MINE: -6,
-  OPENED: 0, // 0 이상이면 다 opened
+  OPENED: 0 // 0 이상이면 다 opened, 주변 지뢰 갯수 표시
 }
+
 
 const plantMine = (row, cell, mine) => {
-  const candidate = Array(row * cell).fill().map((arr, i) => {
-    return i;
+  let tempData = [] 
+  let tempNum = Array(cell*row).fill().map(v => CODE.NORMAL)
+
+  let tempNum2 = Array(cell*row).fill().map((v,i) => i+1)
+  let shuffled = []
+  for (i=0; i<cell*row; i++){
+      randomNum = Math.floor(Math.random()*(tempNum2.length))
+      let spliced = []
+      spliced = tempNum2.splice(randomNum, 1)
+      shuffled = shuffled.concat(spliced)
+  }
+  
+  let mineIdx = []
+  mineIdx = shuffled.splice(0, mine)
+    mineIdx.forEach((v)=>{
+      tempNum[v] = CODE.MINE
   })
-  console.log(candidate.length)
-
-  const shuffle = []
-  while (candidate.length > row * cell - mine) {
-    const chosen = candidate.splice(Math.floor(Math.random() * candidate.length), 1)[0]
-    shuffle.push(chosen)
+  
+  for (i=0; i<row; i++) {
+      tempData.push(tempNum.splice(0, cell))
   }
-  console.log(shuffle)
-
-  const data = []
-  for (let i=0; i<row; i++){
-    const rowData = []
-    data.push(rowData)
-    for (let j=0; j<cell; j++){
-      rowData.push(CODE.NORMAL)
-    }
-  }
-  console.log(data)
-
-  for (let k=0; k<shuffle.length; k++) {
-    const ver = Math.floor(shuffle[k] / cell)
-    console.log(ver)
-    const hor = shuffle[k] % cell
-    console.log(hor)
-    data[ver][hor] = CODE.MINE
-  }
-
-  return data;
+  console.log(tempData)
+  return tempData
 }
 
 
-export default new Vuex.Store({
-  state: {
+export default new Vuex.Store({   // export default로 export 한 애들은 import store from './store' 이렇게 store라는 임의의 이름을 사용할 수 있지만,
+// 위에 export const START_GAME 이렇게 export 한 애들은 import { START_GAME } from './store' 이렇게 정확한 이름을 {} 안에 넣어야 import 해야 함
+// import { START_GAME, OPEN_CELL } 이런 식으로 여러 개 동시에 가져올 수도 있고.
+  state: {  // 데이터로 관리할 것
     tableData: [],
     data: {
       row: 0,
@@ -66,15 +65,16 @@ export default new Vuex.Store({
       mine: 0,
     },
     timer: 0,
-    halted: true, // 중단된, 초기에는 게임이 중단된 상태, 게임 시작을 눌러야 게임이 시작된 상태(false)
     result: '',
-    openedCount: 0,
   },
-  getters: {
+  getters: { // vue의 computed와 비슷
 
   }, 
-  mutations: {
-    [START_GAME](state, { row, cell, mine }) {
+  mutations: { // state를 수정할 때 사용함. 동기적으로. state를 바꿀 때, 바로 바꾸는 게 아니라 mutation을 통해서 바꾸는 걸 권장함
+    [START_GAME](state, { row, cell, mine }) {   // data 객체 안의 row, cell, mine 을 구조분해 해서 { row, cell, mine } 이런 식으로 가져올 수 있음
+      // 만약 다른 vue 컴포넌트에서 START_GAME을 this.$store.commit 을 통해서 가져올 때,
+      // this.$sotre.commit(START_GAME, { row: this.row, cell: this.cell, mine: this.mine }) 이런 식으로 인자들을 전달 할 수 있음. this는 다른 Vue 컴포넌트를 가리키는 거고,
+      // row: this.row 를 받아오면, 받아온 row가 아래 식을 통해서 store.js의 data를 바꾸게 됨.
       state.data = {
         row,
         cell,
@@ -82,113 +82,23 @@ export default new Vuex.Store({
       }
       state.tableData = plantMine(row, cell, mine)
       state.timer = 0
-      state.halted = false
-      state.openedCount = 0
-      state.result = ''
     },
-    [OPEN_CELL](state, { row, cell }) {
-      let openedCount = 0
-      const checked = []
-      function checkAround(row, cell) {
-        let checkRowOrCellUndefined = row<0 || row >= state.tableData.length || cell <0 || cell >= state.tableData[0].length
-        if (checkRowOrCellUndefined){
-          return
-        } // 셀이나 열 바깥으로 나가버리면 undefined가 되니까, 그걸 방지해주기 위해 체크하는 것
-        if ([CODE.OPENED, CODE.FLAG, CODE.FLAG_MINE, CODE.QUESTION_MINE, CODE.QUESTION].includes(state.tableData[row][cell])){
-          return
-        } // 주변 칸이 이미 열렸거나, 깃발이 있거나, 물음표이거나 등등일 땐, 끝내기
-        if (checked.includes(row + '/' + cell)){
-          return // 한 번 열었던 칸이면, return해서 종료해버리고
-        } else {
-          checked.push(row + '/' + cell) // 열지 않았던 칸이면, checked 배열에 기록을 해줌
-        } // 스택오버플로우 방지하기 위해 
-
-        let around = [] // 8가지 귀퉁이를 다 추가해줌
-        if (state.tableData[row-1]) { // row-1 이 undefined면 에러가 나니까, 보호 연산자로 감싸줌
-          around = around.concat([
-            state.tableData[row-1][cell-1],
-            state.tableData[row-1][cell],
-            state.tableData[row-1][cell+1]
-          ])
-        }
-        around = around.concat([
-          state.tableData[row][cell-1],
-          state.tableData[row][cell+1]
-        ])
-        if (state.tableData[row+1]) {
-          around = around.concat([
-            state.tableData[row+1][cell-1],
-            state.tableData[row+1][cell],
-            state.tableData[row+1][cell+1]
-          ])
-        }
-        const counted = around.filter(function(v) {
-          return [CODE.MINE, CODE.FLAG_MINE, CODE.QUESTION_MINE].includes(v)
-        })
-        if(counted.length === 0 && row > -1) { 
-          const near = []
-          if (row - 1 > -1) { // 주변 칸에 지뢰가 하나도 없다면, 주변 8칸 좌표 넣어줌
-            near.push([row-1, cell-1])
-            near.push([row-1, cell])
-            near.push([row-1, cell+1])
-          }
-          near.push([row, cell-1])
-          near.push([row, cell+1])
-          if (row + 1 < state.tableData.length) {
-            near.push([row+1, cell-1])
-            near.push([row+1, cell])
-            near.push([row+1, cell+1])
-          }
-          near.forEach((n) => {
-            if (state.tableData[n[0]][n[1]] !== CODE.OPENDED ) {
-              checkAround(n[0], n[1])
-            }
-          })
-        }
-        if (state.tableData[row][cell] === CODE.NORMAL) {
-          openedCount += 1
-        }
-        Vue.set(state.tableData[row],cell, counted.length)
-      }
-      checkAround(row, cell)
-      let halted = false
-      let result
-      if (state.data.row * state.data.cell - state.data.mine === state.openedCount + openedCount) {
-        halted = true
-        result = `${state.timer}초만에 승리하였습니다`
-      }
-      state.openedCount += openedCount
-      state.halted = halted
-      state.result = result
-    }, 
-    [CLICK_MINE](state, { row, cell }) {
-      state.halted = true
-      Vue.set(state.tableData[row], cell, CODE.CLICKED_MINE)
-    }, 
-    [FLAG_CELL](state, { row, cell }) {
-      if (state.tableData[row][cell] === CODE.MINE) {
-        Vue.set(state.tableData[row], cell, CODE.FLAG_MINE)
-      } else {
-        Vue.set(state.tableData[row], cell, CODE.FLAG)
-      }
+    // START_GAME () {} 원래 이런 식의 함수인데, [START_GAME] 이렇게 양 옆에 대괄호를 붙이면 이 함수를 '변수'로 뺄 수 있다.
+    [OPEN_CELL](state) {
+      // state.tableData[row][cell] ==> 이런 식으로 배열의 인덱스를 사용해서 수정하면, 데이터는 바뀌어도 화면은 안바뀌는 현상이 있기 때문에
+      // Vue.set을 써줘야 함
+      // Vue.set(바꾸는 배열, 바뀌는 인덱스, 무얼로 바꿀지)
+      // Vue.set(state.tableData[row], cell, state.turn)
+      // 그리고 맨 위에 Vue를 import를 해야 함
     },
-    [QUESTION_CELL](state, { row, cell }) {
-      if (state.tableData[row][cell] === CODE.FLAG_MINE) {
-        Vue.set(state.tableData[row], cell, CODE.QUESTION_MINE)
-      } else {
-        Vue.set(state.tableData[row], cell, CODE.QUESTION)
-      }
-    }, 
-    [NORMALIZE_CELL](state, { row, cell }) {
-      if (state.tableData[row][cell] === CODE.QUESTION_MINE) {
-        Vue.set(state.tableData[row], cell, CODE.MINE)
-      } else {
-        Vue.set(state.tableData[row], cell, CODE.NORMAL)
-      }
-    }, 
-    [INCREMENT_TIMER](state) {
-      state.timer += 1
-    }, 
+    [CLICK_MINE](state) {},
+    [FLAG_CELL](state) {},
+    [QUESTION_CELL](state) {},
+    [NORMALIZE_CELL](state) {},
+    [INCREMENT_TIMER](state) {},
   }, 
-  actions: {}, 
+
+  actions: { // 비동기를 사용할 때 또는 여러 mutation을 연달아 실행할 때
+
+  }
 });
