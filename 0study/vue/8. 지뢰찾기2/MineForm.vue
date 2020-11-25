@@ -33,7 +33,12 @@
       onClickBtn() {
         console.log('click')
         this.$store.commit(START_GAME, { row: this.row, cell: this.cell, mine: this.mine })
-      }
+      },
+
+      
+
+
+
     }
     
   }

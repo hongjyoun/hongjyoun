@@ -1,0 +1,5 @@
+const hellos = require('./main')
+// console.log(process.argv)
+console.log(process.argv[2])
+// console.log('hellos : '+hellos.en)
+console.log('hellos : '+hellos.ko)

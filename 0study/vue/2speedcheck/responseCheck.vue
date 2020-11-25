@@ -1,7 +1,7 @@
 <!-- 컴포넌트 만듬 -->
 
 <template>
-    <div>   
+    <div>
         <div id="screen" :class="state" @click="onClickScreen"> {{message}} </div>    <!--   v-bind:class 축약 :class  -->
         <template v-show="result.length">  <!-- ""따옴표 안의 내용이 True 면 이 div가 실행되고, false면 실행 안됨 / v-if와의 차이점은 : 주석처리가 됨 v-show는 태그가 있지만 display: none 일뿐-->
             <div>평균 시간: {{average}}ms</div>   <!-- 배열의 값들을 다 더하는 코드 : result.reduce((a,c)=> a+c, 0) --> <!-- || 0  기본값으로 0 주는 것 -->
@@ -11,10 +11,10 @@
 </template>
 
 <script>
-    let startTime = 0
-    let endTime = 0
-    let timeout = null
-    export default {
+let startTime = 0
+let endTime = 0
+let timeout = null
+export default {
     data() {
         return {
             result : [],

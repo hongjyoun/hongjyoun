@@ -117,26 +117,38 @@
 
 
 
+beforeCreate() {
+        console.log('생성 전')
+      },
 
-    beforeCreate() {
-      console.log(1);
-    },
-    created(){
-      console.log(2);
-      console.log(tableData);
-    },
-    beforeMount() {
-      console.log(3);
-    },
-    mounted() {
-      console.log(4);
-    },
-    beforeUpdate() {
-      console.log(5);
-    },
-    updated() {
-      console.log(6);
-    }
+      created() {
+        console.log('생성됨')
+      },
+
+      beforeMount() {
+        console.log('얹히기 전')
+      },
+
+      mounted() {
+        console.log('얹힘')
+      },
+
+      beforeUpdate() {
+        console.log('수정 전')
+      },
+
+      updated() {
+        console.log('수정됨')
+      },  
+
+      beforeDestroy() {
+        console.log('없어지기 전')
+      },
+
+      destroyed() {
+        console.log('없어짐')
+      },
+
     
   }
 </script>
