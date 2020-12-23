@@ -13,7 +13,7 @@ const sum = (num) => {
 
 // not Self Numbers Array = sums[]
 let sums = []
-for(let i=0; i<1000; i++){
+for(let i=0; i<5000; i++){
   sums.push(sum(i))
 }
 
@@ -25,7 +25,7 @@ numsArray.forEach((v)=>{
   if(!sums.includes(v))
   selfNumbers.push(v)
 })
-console.log(selfNumbers)
+// console.log(selfNumbers)
 
 
 

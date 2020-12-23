@@ -1,4 +1,4 @@
-const testArray = [1,5,3,6,7,13,17,20]
+const testArray = [1,3,5,6,7,13,14,20]
 let gaps = []
 
 for(let i=0; i<testArray.length; i++){

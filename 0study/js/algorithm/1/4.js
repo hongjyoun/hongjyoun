@@ -8,7 +8,7 @@ firstArray.forEach(v=>{
   }
 })
 
-console.log(nums)
+// console.log(nums)
 
 const eightNums = nums.filter((v)=>{
   return v===8
